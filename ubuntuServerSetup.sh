@@ -5,7 +5,7 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 apt-get update -y && apt-get upgrade -y
-apt-get install screen samba samba-common-bin
+apt-get install screen samba samba-common-bin nodejs
 rm /etc/samba/smb.conf
 echo "#
 # Sample configuration file for the Samba suite for Debian GNU/Linux.
