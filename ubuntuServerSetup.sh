@@ -1,12 +1,10 @@
 #!/bin/bash
-if [[ $EUID -ne 0 ]]; then
-    echo "Please run this script with sudo:"
-    echo "sudo $0 $*"
-    exit 1
-fi
-apt-get update -y && apt-get upgrade -y
-apt-get install screen samba samba-common-bin nodejs npm zip unzip emacs -y
-rm /etc/samba/smb.conf
+echo "The user MUST be a sudoer !"
+sleep 1
+sudo apt-get update -y && sudo apt-get upgrade -y
+sudo apt-get install screen samba samba-common-bin nodejs npm zip unzip emacs -y
+echo "(setq make-backup-files nil) ; stop creating ~ files" > ~/.emacs
+sudo rm /etc/samba/smb.conf
 echo "#
 # Sample configuration file for the Samba suite for Debian GNU/Linux.
 #
@@ -267,8 +265,8 @@ security = user
 # to the drivers directory for these users to have write rights in it
 ;   write list = root, @lpadmin
 
-" > /etc/samba/smb.conf
-rm /etc/systemd/logind.conf
+" | sudo tee /etc/samba/smb.conf
+sudo rm /etc/systemd/logind.conf
 echo "#  This file is part of systemd.
 #
 #  systemd is free software; you can redistribute it and/or modify it
@@ -305,5 +303,6 @@ HandleLidSwitchDocked=ignore
 #RemoveIPC=yes
 #InhibitorsMax=8192
 #SessionsMax=8192
-#UserTasksMax=33%" > /etc/systemd/logind.conf
-/etc/init.d/smbd restart
+#UserTasksMax=33%" | sudo tee /etc/systemd/logind.conf
+sudo smbpasswd -a $(whoami)
+sudo /etc/init.d/smbd restart
