@@ -304,5 +304,4 @@ HandleLidSwitchDocked=ignore
 #InhibitorsMax=8192
 #SessionsMax=8192
 #UserTasksMax=33%" | sudo tee /etc/systemd/logind.conf
-sudo smbpasswd -a $(whoami)
 sudo /etc/init.d/smbd restart
