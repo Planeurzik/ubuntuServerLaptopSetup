@@ -2,7 +2,7 @@
 echo "The user MUST be a sudoer !"
 sleep 1
 sudo apt-get update -y && sudo apt-get upgrade -y
-sudo apt-get install screen samba samba-common-bin nodejs npm zip unzip emacs -y
+sudo apt-get install screen samba samba-common-bin nodejs npm zip unzip p7zip-full emacs -y
 echo "(setq make-backup-files nil) ; stop creating ~ files" > ~/.emacs
 sudo rm /etc/samba/smb.conf
 echo "#
